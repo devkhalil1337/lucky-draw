@@ -1,0 +1,37 @@
+<div data-ng-include="activeOption"></div>
+<div class="wrapper" style="background-image: url('images/bg-01.jpg');">
+
+   <div class="taskbar fixed-bottom">
+       <a class="start_btn" id="startBtn">
+           <span class="start_btn_icon"></span>
+           Menu
+       </a>
+       <a class="full_btn" id="fullBtn">
+           <span class="full_btn_icon"></span>
+       </a>
+   </div>
+   <!-- start popup navigation start -->
+   <div id="startMenu">
+      <div id="left">
+          <div class="b">
+              Lucky Draw
+              <span class="num95">Options</span>
+          </div>
+      </div>
+      <div class="right">
+          <a class="menuItem expander" data-target="#new_draw" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+              <span class="menu_icon new_icon"></span><span>New Draw (Ctrl-N)</span>
+          </a>
+          <a class="menuItem expander" data-target="#winner_list" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+              <span class="menu_icon winner_icon"></span><span>Display Winner List</span>
+          </a>
+          <a class="menuItem expander" data-target="#system_settings" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+              <span class="menu_icon settings_icon"></span><span>System Settings</span>
+          </a>
+          <a class="menuItem expander" data-target="#database" data-toggle="modal" data-backdrop="static" data-keyboard="false">
+              <span class="menu_icon database_icon"></span><span>Database</span>
+          </a>
+      </div>
+  </div>
+
+</div>
