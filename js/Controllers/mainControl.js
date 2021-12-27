@@ -8,6 +8,10 @@ app.controller("MainControl",['$scope','navigationService', function ($scope,nav
 		navigationService.setActiveTemplate($scope.selectedTab);
 	}
 
+	$scope.changeTab = function(selectedTab){
+		navigationService.setActiveTemplate(selectedTab);
+	}
+
 
 	$('#startBtn').on('click', function(){
 		$("#startMenu").toggleClass("showMenu");
