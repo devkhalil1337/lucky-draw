@@ -4,8 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prod": "nwbuild --platforms win32,win64 --buildDir dist/ ./"
+  },
+  "window": {
+    "resizable": true,
+    "toolbar": false,
+    "showDevTools": false,
+    "width": 1024,
+    "height": 768,
+    "position": "center",
+    "title": "Lucky Draw"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "nw": "^0.44.1-sdk",
+    "nw-builder": "^3.5.7"
+  }
 }
