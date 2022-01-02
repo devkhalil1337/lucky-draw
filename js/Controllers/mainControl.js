@@ -4,12 +4,15 @@ app.controller("MainControl",['$scope','navigationService', function ($scope,nav
 	function init() {
 
 		console.log("main controller")
-		$scope.selectedTab = "settings";
+		$scope.selectedTab = "addPrize";
 		navigationService.setActiveTemplate($scope.selectedTab);
 	}
 
-	$scope.changeTab = function(selectedTab){
+	$scope.changeTab = function(selectedTab,modalId){
 		navigationService.setActiveTemplate(selectedTab);
+		setTimeout(()=>{
+			$('#'+modalId).modal('toggle');
+		},500)
 	}
 
 
@@ -19,7 +22,8 @@ app.controller("MainControl",['$scope','navigationService', function ($scope,nav
 
 	$scope.$on("$destroy", navigationService.observeActiveTemplateChanged(
 		function (val) {
-			var activeOptionObj = navigationService.getActiveTemplate();
+			console.log(val);
+			let activeOptionObj = navigationService.getActiveTemplate();
 			$scope.activeOption = activeOptionObj.url;
 			$scope.headerText = activeOptionObj.topHeader;
 		}

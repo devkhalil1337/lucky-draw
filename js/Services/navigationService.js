@@ -4,7 +4,11 @@ angular.module('luckDrawApp').factory('navigationService',['detachedScope', func
 	var internalScope = detachedScope.$new();
 
 	var allTemplates = [];
-	allTemplates["settings"] = {url: "html/add-prizes.html", topHeader: "Settings"};
+	allTemplates["addPrize"] = {url: "html/add-prizes.html", topHeader: "Add Prize"};
+	allTemplates["newDraw"] = {url: "html/new-draw.html", topHeader: "New Draw"};
+	allTemplates["winnerList"] = {url: "html/display-winner-list.html", topHeader: "Display Winners List"};
+	allTemplates["systemSettings"] = {url: "html/system-settings.html", topHeader: "System Settings"};
+	allTemplates["database"] = {url: "html/dataBase.html", topHeader: "DataBase"};
 
 	return {
 
