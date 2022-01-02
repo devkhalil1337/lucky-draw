@@ -38,17 +38,31 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 	};
 
 	$(".nav-item").on("click", function (e) {
-        // debugger
-        //var ref_this = $("ul.tabs li a.active");
 		setTimeout(() => {
 			if(e.target.id.indexOf('pills-profile-tab') > -1 && e.target.className.indexOf('active') > -1){
 				$scope.gridOptions.api.sizeColumnsToFit()
 			}			
 		}, 50);
-
        });
 
+
+	   $scope.loadWorksheet = function(e) {
+		// Read Workbook
+		let file = e.target.result;
+		let workbook = XLSX.read(file, { type: "binary" });
 	
+		// Get the first worksheet as JSON
+		let sheetName = workbook.SheetNames[0];
+		
+		// Update scope and log it
+		$scope.sheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);    
+		console.log($scope.sheet);
+
+
+		$scope.gridOptions.api.setRowData($scope.sheet);
+		// $scope.$apply(); // Need this to update angular of the changes
+	  };
+
 	
 	//Interface
 	
