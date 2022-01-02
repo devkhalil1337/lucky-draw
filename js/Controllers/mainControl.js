@@ -23,7 +23,7 @@ app.controller("MainControl",['$scope','navigationService','localStorageService'
 		navigationService.setActiveTemplate(selectedTab);
 		setTimeout(()=>{
 			$('#'+modalId).modal('toggle');
-		},500)
+		},100)
 	}
 
 

@@ -16,9 +16,41 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 	
 	
 	
+	$scope.gridOptions = {
+		defaultColDef: {
+			resizable: true,
+		},
+		columnDefs: [
+			{headerName: "First Name", field: "firstName"},
+			{headerName: "Last Name", field: "lastName"},
+			{headerName: "Handle", field: "handle"}
+		],
+		rowData: [
+			{firstName: "Mark", lastName: "Nick", handle: '@mdo'},
+			{firstName: "Frank", lastName: "Gabe", handle: '@mdo'},
+			{firstName: "Moy", lastName: "Troy", handle: '@mdo'},
+		],
+		enableSorting: true,
+		enableColResize: true,
+		onGridReady: function(params) {
+			params.api.sizeColumnsToFit();
+		},
+	};
+
+	$(".nav-item").on("click", function (e) {
+        // debugger
+        //var ref_this = $("ul.tabs li a.active");
+		setTimeout(() => {
+			if(e.target.id.indexOf('pills-profile-tab') > -1 && e.target.className.indexOf('active') > -1){
+				$scope.gridOptions.api.sizeColumnsToFit()
+			}			
+		}, 50);
+
+       });
+
 	
 	
-	
+	//Interface
 	
 	$scope.SelectFile = function (e) {
 		let reader = new FileReader();
@@ -52,6 +84,8 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 			console.log("unable to store image",error);
 		}
 	}
+
+	//End of Interface
 	
 	init();
 	

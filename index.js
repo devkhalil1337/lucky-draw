@@ -6,8 +6,8 @@ document.addEventListener("DOMContentLoaded", function onDeviceReady() {
 	console.log("device ready event completed....");
 }, false);
 
-
-angular.module('luckDrawApp', ['ngRoute', 'ngLocale'])
+agGrid.initialiseAgGridWithAngular1(angular);
+angular.module('luckDrawApp', ['ngRoute', 'ngLocale','agGrid'])
 	.config(['$routeProvider', '$httpProvider', '$localeProvider', '$compileProvider',function ($routeProvider, $httpProvider, $localeProvider, $compileProvider) {
 		"ngInject";
 		// $compileProvider.imgSrcSanitizationWhitelist('chrome-extension://');
