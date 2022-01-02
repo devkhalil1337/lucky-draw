@@ -33,33 +33,34 @@
                                     <div class="form-group row">
                                         <label for="staticEmail" class="col-sm-4 col-form-label">Select Image</label>
                                         <div class="col-sm-8">
-                                            <select class="form-control">
-                                                <option>Select from Uploaded Images</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
+                                            <select class="form-control" ng-model="imagesObj.selectedImage">
+                                                <option value="" selected="selected">Select from Uploaded Images</option>
+                                                <option ng-repeat="img in imagesObj.imagesList" value="{{img}}">{{$index+1}}</option>
                                               </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="staticEmail" class="col-sm-4 col-form-label">Upload Image</label>
-                                        <div class="col-sm-8">
-                                            <input type="file" class="form-control-plaintext" >
+                                        <div class="col-sm-6">
+                                            
+                                            <input type="file" class="form-control-plaintext" onchange="angular.element(this).scope().SelectFile(event)">
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <a href ng-click="clear();">Clear</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div id="preview" style="background-image: url('images/bg-01.jpg');"></div>
+                                    <div id="preview" style="background-image: url( {{imagesObj.PreviewImage ? imagesObj.PreviewImage : imagesObj.selectedImage ? imagesObj.selectedImage : 'images/bg-01.jpg'}});"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-section-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             <div>
-                                <button type="button" class="btn btn-primary">Confirm</button>
+                                <button type="button" class="btn btn-primary" ng-click="saveImage();">Confirm</button>
                                 <button type="button" class="btn btn-success">Apply</button>
                             </div>
                         </div>

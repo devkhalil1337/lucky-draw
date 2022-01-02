@@ -11,7 +11,7 @@ angular.module('luckDrawApp', ['ngRoute', 'ngLocale'])
 	.config(['$routeProvider', '$httpProvider', '$localeProvider', '$compileProvider',function ($routeProvider, $httpProvider, $localeProvider, $compileProvider) {
 		"ngInject";
 		// $compileProvider.imgSrcSanitizationWhitelist('chrome-extension://');
-		$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|chrome-extension):/);
+		$compileProvider.imgSrcSanitizationWhitelist(/^\s*(https?|local|data|file):/);
 		$localeProvider.id = 'en';
 		$routeProvider
 			.when('/', {
