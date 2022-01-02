@@ -33,7 +33,7 @@
                                     <div class="form-group row">
                                         <label for="staticEmail" class="col-sm-4 col-form-label">Select Image</label>
                                         <div class="col-sm-8">
-                                            <select class="form-control" ng-model="imagesObj.selectedImage">
+                                            <select class="form-control" ng-model="imagesObj.selectedImage" ng-change="getImageIndex()">
                                                 <option value="" selected="selected">Select from Uploaded Images</option>
                                                 <option ng-repeat="img in imagesObj.imagesList" value="{{img}}">{{$index+1}}</option>
                                               </select>
@@ -61,7 +61,7 @@
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             <div>
                                 <button type="button" class="btn btn-primary" ng-click="saveImage();">Confirm</button>
-                                <button type="button" class="btn btn-success">Apply</button>
+                                <button type="button" class="btn btn-success" ng-click="ApplyImage(imagesObj.index);">Apply</button>
                             </div>
                         </div>
                     </div>

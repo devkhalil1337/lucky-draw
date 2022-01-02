@@ -23,9 +23,16 @@ angular.module('luckDrawApp').factory('localStorageService',['$injector', functi
         return JSON.parse(imageList);
     }
 
+    let _setDefaultImageIndex = (index) => localStorage.setItem("defaultIndex",index);
+
+    let _getDefaultImageIndex = () => localStorage.getItem("defaultIndex");
+    
+  
 
     return {
         setImage :_setImage,
-        getImagesList:_getImagesList
+        getImagesList:_getImagesList,
+        setDefaultImageIndex :_setDefaultImageIndex,
+        getDefaultImageIndex:_getDefaultImageIndex
     }
 }]);

@@ -3,7 +3,8 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 	$scope.imagesObj ={
 		imagesList:[],
 		selectedImage:'',
-		PreviewImage:''
+		PreviewImage:'',
+		index:0
 	};
 
 	function init() {
@@ -32,6 +33,12 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		angular.element("input[type='file']").val(null);
 		$scope.imagesObj.PreviewImage = '';
 	};
+	
+	$scope.getImageIndex = (img) => {
+		let imagesList = localStorageService.getImagesList();
+		let index = imagesList.indexOf($scope.imagesObj.selectedImage);
+		$scope.imagesObj.index = index;
+	}
 	
 	
 	$scope.saveImage = async () => {

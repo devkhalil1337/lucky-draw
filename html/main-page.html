@@ -1,5 +1,5 @@
 <div data-ng-include="activeOption"></div>
-<div class="wrapper" style="background-image: url('images/bg-01.jpg');">
+<div class="wrapper" style="background-image: url({{settingsObj.backgroundImage ? settingsObj.backgroundImage : 'images/bg-01.jpg'}});">
    <div class="taskbar fixed-bottom">
        <a class="start_btn" id="startBtn">
            <span class="start_btn_icon"></span>
