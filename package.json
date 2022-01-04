@@ -1,20 +1,11 @@
 {
-  "name": "lucky-draw",
+  "name": "Luckydraw",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prod": "nwbuild --platforms win32,win64 --buildDir dist/ ./"
-  },
-  "window": {
-    "resizable": true,
-    "toolbar": false,
-    "showDevTools": false,
-    "width": 1024,
-    "height": 768,
-    "position": "center",
-    "title": "Lucky Draw"
+    "dev": "nw src/",
+    "prod": "nwbuild --platforms win64 --buildDir dist/ src/"
   },
   "author": "",
   "license": "ISC",
