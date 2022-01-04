@@ -28,6 +28,14 @@ app.controller("MainControl",['$scope','navigationService','localStorageService'
 
 
 
+	$('#fullBtn').on('click', function(){
+		let ngui = require('nw.gui');
+		let nwin = ngui.Window.get();
+		if(nwin.isFullscreen)
+			nw.Window.get().leaveFullscreen();
+		else
+			nwin.enterFullscreen();
+	});
 	$('#startBtn').on('click', function(){
 		$("#startMenu").toggleClass("showMenu");
 	});
