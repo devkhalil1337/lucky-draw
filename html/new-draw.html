@@ -1,12 +1,12 @@
-
+<div ng-controller="newDrawController">
 <!-- start popup navigation end -->
 <div class="modal fade bd-example-modal-lg" id="new_draw" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content" ng-controller="newDrawController">
+        <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">New Draw</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
+                <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
@@ -36,7 +36,7 @@
                                             <select class="form-control" ng-model="imagesObj.selectedImage" ng-change="getImageIndex()">
                                                 <option value="" selected="selected">Select from Uploaded Images</option>
                                                 <option ng-repeat="img in imagesObj.imagesList" value="{{img}}">{{$index+1}}</option>
-                                              </select>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -109,7 +109,7 @@
                             <div class="row">
                                 <div class="col-lg-12 text-center">
                                     <div class="btn-group" role="group" aria-label="First group">
-                                        <button type="button" class="btn btn-secondary" data-target="#add_new_prize" data-toggle="modal" data-backdrop="static" data-keyboard="false">New</button>
+                                        <button type="button" class="btn btn-secondary" ng-click="addNewPrize = {};" data-target="#add_new_prize" data-toggle="modal" data-backdrop="static" data-keyboard="false">New</button>
                                         <button type="button" class="btn btn-secondary">Edit</button>
                                         <button type="button" class="btn btn-secondary">Delete</button>
                                         <button type="button" class="btn btn-secondary">Clear-all</button>
@@ -389,4 +389,70 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade bd-example-modal-lg" id="add_new_prize" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="top: 15%;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <form name="addNewPrize" novalidate ng-submit="OnAddNewPrize();">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Prize</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="padding: 0 1rem;">
+                    <div class="bg-white p-2" style="border: 1px solid lightgray;">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group row">
+                                    <label for="staticEmail" class="col-sm-4 col-form-label">Draw Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" ng-model="addNewPrize.drawName">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="staticEmail" class="col-sm-4 col-form-label">Prize Quantity</label>
+                                    <div class="col-sm-8">
+                                        <input type="number" class="form-control"  ng-model="addNewPrize.prizeQuantity">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="staticEmail" class="col-sm-4 col-form-label">Select Image</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control"  ng-model="addNewPrize.PreviewImage">
+                                            <option value="" selected="selected">Select from Uploaded Images</option>
+                                            <option ng-repeat="img in addNewPrize.imagesList" value="{{img}}">{{$index+1}}</option>
+                                            
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="staticEmail" class="col-sm-4 col-form-label">Upload Image</label>
+                                    <div class="col-sm-8">
+                                        <input type="file" class="form-control-plaintext"  onchange="angular.element(this).scope().SelectFile(event)">
+                                    </div>
+                                </div>
+    
+                            </div>
+                            <div class="col-lg-6">
+                                <div id="new_prize">
+                                    <h3 ng-show="!addNewPrize.selectedImage || addNewPrize.selectedImage.length == 0">Preview</h3>
+                                    <img src="{{addNewPrize.selectedImage}}" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <div>
+                        <!-- <button type="button" class="btn btn-primary">Confirm</button> -->
+                        <button type="submit" class="btn btn-success">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>    
 </div>

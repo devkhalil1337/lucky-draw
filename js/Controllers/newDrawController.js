@@ -1,11 +1,19 @@
-angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'navigationService','localStorageService', function($scope, navigationService,localStorageService) {
-	
+angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'navigationService','localStorageService','commanService', function($scope, navigationService,localStorageService,commanService) {
+	$scope.prizeList = {list:[]}
 	$scope.imagesObj ={
 		imagesList:[],
 		selectedImage:'',
 		PreviewImage:'',
 		index:0
 	};
+
+	$scope.addNewPrize = {
+		drawName:'',
+		prizeQuantity:0,
+		selectedImage:'',
+		PreviewImage:'',
+		imagesList:[]
+	}
 
 	function init() {
 		console.log("newDrawController execyted");
@@ -20,20 +28,40 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		defaultColDef: {
 			resizable: true,
 		},
-		columnDefs: [
-			{headerName: "Draw Name", field: "drawname"},
-			{headerName: "Prize Quantity", field: "prizequantity"},
-			{headerName: "Already Drawn", field: "alreadydrawn"},
-			{headerName: "x-no of Winners", field: "noofwinners"},
-			{headerName: "Prize Name", field: "prizename"},
-			{headerName: "Prize Image", field: "prizeimage"},
-		],
-		rowData: [
-			{drawname: "Mark", prizequantity: "10", alreadydrawn: '2', noofwinners: '1', prizename: 'PS4',prizeimage:''},
-			{drawname: "Frank", prizequantity: "10", alreadydrawn: '10', noofwinners: '8', prizename: 'Laptop',prizeimage:''},
-			{drawname: "Mark", prizequantity: "10", alreadydrawn: '36', noofwinners: '25', prizename: 'Cup',prizeimage:''},
-			{drawname: "Mark", prizequantity: "10", alreadydrawn: '0', noofwinners: '0', prizename: 'Glass',prizeimage:''},
-		],
+		columnDefs: [{
+			headerName: "Prize Image",
+			field: "prizeimage",
+			width:150,
+			cellRenderer: params => '<img src=' + params.value + '>'
+		}, {
+			headerName: "Draw Name",
+			field: "drawname",
+			width:150,
+		}, {
+			headerName: "Prize Quantity",
+			field: "prizequantity",
+			width:150,
+		}, {
+			headerName: "Already Drawn",
+			field: "alreadydrawn",
+			width:150,
+			cellRenderer: params => params.value ? 'Yes' : 'No'
+		}, {
+			headerName: "x-no of Winners",
+			field: "noofwinners",
+			width:150,
+		}, {
+			headerName: "Prize Name",
+			field: "prizename",
+			width:150,
+		}, ],
+		rowData:localStorageService.getPrizeList(),
+		// [
+		// 	{drawname: "Mark", prizequantity: "10", alreadydrawn: '2', noofwinners: '1', prizename: 'PS4',prizeimage:''},
+		// 	{drawname: "Frank", prizequantity: "10", alreadydrawn: '10', noofwinners: '8', prizename: 'Laptop',prizeimage:''},
+		// 	{drawname: "Mark", prizequantity: "10", alreadydrawn: '36', noofwinners: '25', prizename: 'Cup',prizeimage:''},
+		// 	{drawname: "Mark", prizequantity: "10", alreadydrawn: '0', noofwinners: '0', prizename: 'Glass',prizeimage:''},
+		// ],
 		enableSorting: true,
 		enableColResize: true,
 		onGridReady: function(params) {
@@ -49,6 +77,35 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		}, 50);
        });
 
+
+	   $scope.OnAddNewPrize = async () => {
+		try{
+			let params = { 
+			 drawname:$scope.addNewPrize.drawName,
+			 prizequantity:$scope.addNewPrize.prizeQuantity,
+			 alreadydrawn:false,
+			 noofwinners:0,
+			 noofwinners:0,
+			 prizename:'',
+			 prizeimage:$scope.addNewPrize.selectedImage
+			}
+			let response = await localStorageService.setPrizeObj(params);
+			if(response){
+				alert("Prize added");
+				let rowData = [];
+				$scope.gridOptions.api.forEachNode(node => rowData.push(node.data));
+				$scope.gridOptions.api.setRowData([...rowData,params])
+			}
+		}catch(error){
+			console.log(error);
+		}
+	   }
+	   
+
+	   $scope.clearObject = () => {
+		$scope.addNewPrize = {}
+	   }
+	   
 
 	   $scope.loadWorksheet = function(e) {
 		// Read Workbook
@@ -70,13 +127,14 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 	
 	//Interface
 	
-	$scope.SelectFile = function (e) {
+	$scope.SelectFile = function (event,number) {
 		let reader = new FileReader();
 		reader.onload = function (e) {
 			$scope.imagesObj.PreviewImage = e.target.result;
+			$scope.addNewPrize.selectedImage = e.target.result;
 			$scope.$apply();
 		};
-		reader.readAsDataURL(e.target.files[0]);
+		reader.readAsDataURL(event.target.files[0]);
 	};
 
 	$scope.clear = function () {
