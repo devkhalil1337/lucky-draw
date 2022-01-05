@@ -35,7 +35,7 @@
                                         <div class="col-sm-8">
                                             <select class="form-control" ng-model="imagesObj.selectedImage" ng-change="getImageIndex()">
                                                 <option value="" selected="selected">Select from Uploaded Images</option>
-                                                <option ng-repeat="img in imagesObj.imagesList" value="{{img}}">{{$index+1}}</option>
+                                                <option ng-repeat="img in imagesObj.imagesList track by $index" value="{{img}}">{{$index+1}}</option>
                                             </select>
                                         </div>
                                     </div>
@@ -54,7 +54,6 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    {{imagesObj.selectedImage}}
                                     <div id="preview" style="background-image: url( 
                                         {{imagesObj.PreviewImage ? imagesObj.PreviewImage : 
                                         imagesObj.selectedImage ? 'images/'+imagesObj.selectedImage :  'images/bg-01.jpg'}});"></div>

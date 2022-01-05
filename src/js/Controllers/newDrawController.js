@@ -168,9 +168,12 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 				if(isImageSaved){
 					debugger
 					$scope.imagesObj.imagesList = localStorageService.getImagesList();
-					$scope.imagesObj.PreviewImage = '';
-					$scope.imagesObj.selectedImage = name
+					$scope.imagesObj.PreviewImage = "";
+					let index = $scope.imagesObj.imagesList.indexOf(name);
+					$scope.imagesObj.selectedImage = $scope.imagesObj.imagesList[index];
+					$scope.clear();
 					$scope.getImageIndex();
+					$scope.$apply();
 				}
 			}
 
