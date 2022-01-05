@@ -28,7 +28,14 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		defaultColDef: {
 			resizable: true,
 		},
-		columnDefs: [{
+		columnDefs: [
+			{ 
+			field: 'RowSelect',
+			headerName: ' ',
+			headerCheckboxSelection: true,
+			checkboxSelection: true,
+			width:100
+			},{
 			headerName: "Prize Image",
 			field: "prizeimage",
 			width:150,
