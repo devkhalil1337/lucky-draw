@@ -32,7 +32,7 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 			headerName: "Prize Image",
 			field: "prizeimage",
 			width:150,
-			cellRenderer: params => '<img src=' + params.value + '>'
+			cellRenderer: params => '<img src=images/' + params.value + '>'
 		}, {
 			headerName: "Draw Name",
 			field: "drawname",
@@ -80,6 +80,7 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 
 	   $scope.OnAddNewPrize = async () => {
 		try{
+			let {name,path} = commanService.extractNamePath($scope.addNewPrize.selectedImage)
 			let params = { 
 			 drawname:$scope.addNewPrize.drawName,
 			 prizequantity:$scope.addNewPrize.prizeQuantity,
@@ -87,10 +88,10 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 			 noofwinners:0,
 			 noofwinners:0,
 			 prizename:'',
-			 prizeimage:$scope.addNewPrize.selectedImage
+			 prizeimage:name
 			}
 			let response = await localStorageService.setPrizeObj(params);
-			if(response){
+			if(response && commanService.uploadFile(name,path)){
 				alert("Prize added");
 				let rowData = [];
 				$scope.gridOptions.api.forEachNode(node => rowData.push(node.data));
@@ -127,12 +128,17 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 	
 	//Interface
 	
-	$scope.SelectFile = function (event,number) {
+	$scope.SelectFile = function (event,name) {
 		let reader = new FileReader();
 		reader.onload = function (e) {
-			$scope.imagesObj.PreviewImage = e.target.result;
-			$scope.imagesObj.selectedImage = event.target.files[0];
-			$scope.addNewPrize.selectedImage = e.target.result;
+			if(name == 'prize'){
+				$scope.addNewPrize.PreviewImage = e.target.result;
+				$scope.addNewPrize.selectedImage = event.target.files[0];
+			}else{
+				$scope.imagesObj.PreviewImage = e.target.result;
+				$scope.imagesObj.selectedImage = event.target.files[0];
+			}
+			
 			$scope.$apply();
 		};
 		reader.readAsDataURL(event.target.files[0]);
@@ -141,6 +147,8 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 	$scope.clear = function () {
 		angular.element("input[type='file']").val(null);
 		$scope.imagesObj.PreviewImage = '';
+		$scope.imagesObj.selectedImage = '';
+		$scope.addNewPrize.selectedImage = '';
 	};
 	
 	$scope.getImageIndex = () => {
@@ -153,8 +161,7 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 	$scope.saveImage = async () => {
 		debugger
 		try{
-			let {name,path} = $scope.imagesObj.selectedImage;
-			name = name.split(" ").join("_");
+			let {name,path} = commanService.extractNamePath($scope.imagesObj.selectedImage)
 			if(commanService.uploadFile(name,path)){
 				alert("Image uploaded");
 				let isImageSaved = await localStorageService.setImage(name);

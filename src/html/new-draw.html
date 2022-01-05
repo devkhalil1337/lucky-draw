@@ -113,7 +113,7 @@
                             <div class="row">
                                 <div class="col-lg-12 text-center">
                                     <div class="btn-group" role="group" aria-label="First group">
-                                        <button type="button" class="btn btn-secondary" ng-click="addNewPrize = {};" data-target="#add_new_prize" data-toggle="modal" data-backdrop="static" data-keyboard="false">New</button>
+                                        <button type="button" class="btn btn-secondary" ng-click="addNewPrize = {};clear();" data-target="#add_new_prize" data-toggle="modal" data-backdrop="static" data-keyboard="false">New</button>
                                         <button type="button" class="btn btn-secondary">Edit</button>
                                         <button type="button" class="btn btn-secondary">Delete</button>
                                         <button type="button" class="btn btn-secondary">Clear-all</button>
@@ -434,15 +434,15 @@
                                 <div class="form-group row">
                                     <label for="staticEmail" class="col-sm-4 col-form-label">Upload Image</label>
                                     <div class="col-sm-8">
-                                        <input type="file" class="form-control-plaintext"  onchange="angular.element(this).scope().SelectFile(event)">
+                                        <input type="file" class="form-control-plaintext"  onchange="angular.element(this).scope().SelectFile(event,'prize')">
                                     </div>
                                 </div>
     
                             </div>
                             <div class="col-lg-6">
                                 <div id="new_prize">
-                                    <h3 ng-show="!addNewPrize.selectedImage || addNewPrize.selectedImage.length == 0">Preview</h3>
-                                    <img src="{{addNewPrize.selectedImage}}" alt="">
+                                    <h3 ng-show="!addNewPrize.PreviewImage || addNewPrize.PreviewImage.length == 0">Preview</h3>
+                                    <img src="{{addNewPrize.PreviewImage}}" alt="">
                                 </div>
                             </div>
                         </div>

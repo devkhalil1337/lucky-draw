@@ -36,6 +36,15 @@ angular.module('luckDrawApp').factory('commanService',['$injector', function ($i
         }
     }
 
+    factory.extractNamePath = (imageFile) => {
+        let {name,path} = imageFile;
+			name = name.split(" ").join("_");
+            return {
+                name:name,
+                path:path
+            }
+    }
+
     return factory;
    
 }]);
