@@ -16,6 +16,13 @@ angular.module('luckDrawApp').factory('localStorageService',['$injector', functi
         })
     }
 
+    let _removeImage = (img) => {
+        let imageList = _getImagesList();
+        let index = imageList.indexOf(img);
+        imageList.splice(index,1);
+        localStorage.setItem("backgroundImage",JSON.stringify(imageList));
+    }
+
     let _getImagesList = () => {
         let imageList = localStorage.getItem("backgroundImage");
         if(!imageList)
@@ -55,6 +62,7 @@ angular.module('luckDrawApp').factory('localStorageService',['$injector', functi
     return {
         setImage :_setImage,
         getImagesList:_getImagesList,
+        removeImage:_removeImage,
         setDefaultImageIndex :_setDefaultImageIndex,
         getDefaultImageIndex:_getDefaultImageIndex,
         setPrizeObj:_setPrizeObj,

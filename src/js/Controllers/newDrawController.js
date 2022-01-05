@@ -131,6 +131,7 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		let reader = new FileReader();
 		reader.onload = function (e) {
 			$scope.imagesObj.PreviewImage = e.target.result;
+			$scope.imagesObj.selectedImage = event.target.files[0];
 			$scope.addNewPrize.selectedImage = e.target.result;
 			$scope.$apply();
 		};
@@ -142,7 +143,7 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		$scope.imagesObj.PreviewImage = '';
 	};
 	
-	$scope.getImageIndex = (img) => {
+	$scope.getImageIndex = () => {
 		let imagesList = localStorageService.getImagesList();
 		let index = imagesList.indexOf($scope.imagesObj.selectedImage);
 		$scope.imagesObj.index = index;
@@ -150,14 +151,34 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 	
 	
 	$scope.saveImage = async () => {
+		debugger
 		try{
-			let isImageSaved = await localStorageService.setImage($scope.imagesObj.PreviewImage);
-			if(isImageSaved){
-				$scope.imagesObj.imagesList = localStorageService.getImagesList();
-				$scope.imagesObj.PreviewImage = '';
+			let {name,path} = $scope.imagesObj.selectedImage;
+			name = name.split(" ").join("_");
+			if(commanService.uploadFile(name,path)){
+				alert("Image uploaded");
+				let isImageSaved = await localStorageService.setImage(name);
+				if(isImageSaved){
+					debugger
+					$scope.imagesObj.imagesList = localStorageService.getImagesList();
+					$scope.imagesObj.PreviewImage = '';
+					$scope.imagesObj.selectedImage = name
+					$scope.getImageIndex();
+				}
 			}
+
 		}catch(error){
-			console.log("unable to store image",error);
+			console.log(error);
+		}
+	}
+
+	$scope.deleteFile = () => {
+		if(commanService.deleteFile($scope.imagesObj.selectedImage)){
+			localStorageService.removeImage($scope.imagesObj.selectedImage);
+			$scope.imagesObj.imagesList = localStorageService.getImagesList();
+			$scope.imagesObj.PreviewImage = "";
+			$scope.imagesObj.selectedImage = "";
+			alert("File deleted");
 		}
 	}
 

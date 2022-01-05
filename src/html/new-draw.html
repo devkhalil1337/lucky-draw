@@ -46,14 +46,18 @@
                                             <input type="file" class="form-control-plaintext" onchange="angular.element(this).scope().SelectFile(event)">
                                         </div>
                                         <div class="col-sm-2">
-                                            <a href ng-click="clear();">Clear</button>
+                                            <a href ng-click="clear();">Clear</a> | 
+                                            <a href ng-click="deleteFile();">Delete</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <div id="preview" style="background-image: url( {{imagesObj.PreviewImage ? imagesObj.PreviewImage : imagesObj.selectedImage ? imagesObj.selectedImage : 'images/bg-01.jpg'}});"></div>
+                                    {{imagesObj.selectedImage}}
+                                    <div id="preview" style="background-image: url( 
+                                        {{imagesObj.PreviewImage ? imagesObj.PreviewImage : 
+                                        imagesObj.selectedImage ? 'images/'+imagesObj.selectedImage :  'images/bg-01.jpg'}});"></div>
                                 </div>
                             </div>
                         </div>
