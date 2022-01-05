@@ -71,6 +71,7 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		// ],
 		enableSorting: true,
 		enableColResize: true,
+		rowSelection: 'multiple',
 		onGridReady: function(params) {
 			params.api.sizeColumnsToFit();
 		},
