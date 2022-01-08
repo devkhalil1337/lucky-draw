@@ -1,4 +1,4 @@
-angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'navigationService','localStorageService','commanService', function($scope, navigationService,localStorageService,commanService) {
+angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'navigationService','localStorageService','commanService','notificationService', function($scope, navigationService,localStorageService,commanService,notificationService) {
 	$scope.prizeList = {list:[]}
 	$scope.imagesObj ={
 		imagesList:[],
@@ -71,19 +71,13 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		// ],
 		enableSorting: true,
 		enableColResize: true,
-		rowSelection: 'multiple',
+		rowSelection: 'single',
 		onGridReady: function(params) {
 			params.api.sizeColumnsToFit();
 		},
 	};
 
-	$(".nav-item").on("click", function (e) {
-		setTimeout(() => {
-			if(e.target.id.indexOf('pills-profile-tab') > -1 && e.target.className.indexOf('active') > -1){
-				$scope.gridOptions.api.sizeColumnsToFit()
-			}			
-		}, 50);
-       });
+
 
 
 	   $scope.OnAddNewPrize = async () => {
@@ -100,14 +94,28 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 			}
 			let response = await localStorageService.setPrizeObj(params);
 			if(response && commanService.uploadFile(name,path)){
-				alert("Prize added");
+				notificationService.showNotification("Prize Added", "fa fa-check", 2);
+				// alert("Prize added");
 				let rowData = [];
 				$scope.gridOptions.api.forEachNode(node => rowData.push(node.data));
 				$scope.gridOptions.api.setRowData([...rowData,params])
 			}
 		}catch(error){
 			console.log(error);
+			notificationService.showNotification(error, "fa fa-check", 4);
 		}
+	   }
+
+	   $scope.onOpenNewAddPrizePopUp = () => {
+		$scope.clear();
+		$scope.addNewPrize = {
+			drawName:'',
+			prizeQuantity:0,
+			selectedImage:'',
+			PreviewImage:'',
+			imagesList:[]
+		}
+		$scope.addNewPrize.imagesList =  localStorageService.getPrizeList();
 	   }
 	   
 
@@ -171,7 +179,7 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		try{
 			let {name,path} = commanService.extractNamePath($scope.imagesObj.selectedImage)
 			if(commanService.uploadFile(name,path)){
-				alert("Image uploaded");
+				notificationService.showNotification(name + " uploaded successfully", "fa fa-check", 2);
 				let isImageSaved = await localStorageService.setImage(name);
 				if(isImageSaved){
 					debugger
@@ -196,12 +204,21 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 			$scope.imagesObj.imagesList = localStorageService.getImagesList();
 			$scope.imagesObj.PreviewImage = "";
 			$scope.imagesObj.selectedImage = "";
-			alert("File deleted");
+			notificationService.showNotification("File deleted successfully", "fa fa-check", 2);
 		}
 	}
 
 	//End of Interface
 	
 	init();
+
+
+	$(".nav-item").on("click", function (e) {
+		setTimeout(() => {
+			if(e.target.id.indexOf('pills-profile-tab') > -1 && e.target.className.indexOf('active') > -1){
+				$scope.gridOptions.api.sizeColumnsToFit()
+			}			
+		}, 50);
+       });
 	
 }]);

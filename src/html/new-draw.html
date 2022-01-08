@@ -112,7 +112,7 @@
                             <div class="row">
                                 <div class="col-lg-12 text-center">
                                     <div class="btn-group" role="group" aria-label="First group">
-                                        <button type="button" class="btn btn-secondary" ng-click="addNewPrize = {};clear();" data-target="#add_new_prize" data-toggle="modal" data-backdrop="static" data-keyboard="false">New</button>
+                                        <button type="button" class="btn btn-secondary" ng-click="onOpenNewAddPrizePopUp();" data-target="#add_new_prize" data-toggle="modal" data-backdrop="static" data-keyboard="false">New</button>
                                         <button type="button" class="btn btn-secondary">Edit</button>
                                         <button type="button" class="btn btn-secondary">Delete</button>
                                         <button type="button" class="btn btn-secondary">Clear-all</button>
@@ -417,15 +417,15 @@
                                 <div class="form-group row">
                                     <label for="staticEmail" class="col-sm-4 col-form-label">Prize Quantity</label>
                                     <div class="col-sm-8">
-                                        <input type="number" class="form-control"  ng-model="addNewPrize.prizeQuantity">
+                                        <input type="number" class="form-control" min="1"  ng-model="addNewPrize.prizeQuantity">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="staticEmail" class="col-sm-4 col-form-label">Select Image</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control"  ng-model="addNewPrize.PreviewImage">
+                                        <select class="form-control"  ng-model="addNewPrize.selected" ng-change="addNewPrize.PreviewImage = ''">
                                             <option value="" selected="selected">Select from Uploaded Images</option>
-                                            <option ng-repeat="img in addNewPrize.imagesList" value="{{img}}">{{$index+1}}</option>
+                                            <option ng-repeat="img in addNewPrize.imagesList" value="{{img.prizeimage}}">{{$index+1}}</option>
                                             
                                         </select>
                                     </div>
@@ -436,12 +436,11 @@
                                         <input type="file" class="form-control-plaintext"  onchange="angular.element(this).scope().SelectFile(event,'prize')">
                                     </div>
                                 </div>
-    
                             </div>
                             <div class="col-lg-6">
                                 <div id="new_prize">
-                                    <h3 ng-show="!addNewPrize.PreviewImage || addNewPrize.PreviewImage.length == 0">Preview</h3>
-                                    <img src="{{addNewPrize.PreviewImage}}" alt="">
+                                    <h3 ng-show="(!addNewPrize.PreviewImage || addNewPrize.PreviewImage.length == 0) && (!addNewPrize.selected || addNewPrize.selected.length == 0)">Preview</h3>
+                                    <img src="{{addNewPrize.PreviewImage ? addNewPrize.PreviewImage : addNewPrize.selected ? 'images/'+addNewPrize.selected:''}}" alt="">
                                 </div>
                             </div>
                         </div>
