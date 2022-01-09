@@ -15,6 +15,18 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		imagesList:[]
 	}
 
+	$scope.modalObj = {
+		onDeletePrize: () => {
+			if($scope.addNewPrize.id)
+		   	$('#delete_prize').modal('show');
+		},
+		onEditPrize: () => {
+			if($scope.addNewPrize.id)
+			$('#add_new_prize').modal('show');
+		}
+
+	}
+
 	function init() {
 		console.log("newDrawController execyted");
 		$scope.imagesObj.imagesList = localStorageService.getImagesList();
@@ -30,9 +42,9 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		},
 		columnDefs: [
 			{ 
-			field: 'RowSelect',
+			// field: 'RowSelect',
 			headerName: ' ',
-			headerCheckboxSelection: true,
+			// headerCheckboxSelection: true,
 			checkboxSelection: true,
 			width:100
 			},{
@@ -85,6 +97,8 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		},
 		onGridReady: function(params) {
 			params.api.sizeColumnsToFit();
+			if(!$scope.gridOptions.api.getRowNode(0))
+				$scope.gridOptions.api.showNoRowsOverlay();
 		},
 	};
 
@@ -144,15 +158,6 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		$scope.addNewPrize.imagesList =  localStorageService.getPrizeList();
 		//  $scope.addNewPrize.selectedImage = $scope.addNewPrize.imagesList[1].prizeimage;
 	   }
-
-	   $scope.onEditPrize = () => { 
-		   if($scope.addNewPrize.id)
-		   	$('#add_new_prize').modal('show');
-		}
-	   $scope.onDeletePrizePopup = () => { 
-		   if($scope.addNewPrize.id)
-		   	$('#delete_prize').modal('show');
-		}
 
 	   $scope.onDeletePrize = () => {
 		let node = $scope.gridOptions.api.getSelectedNodes();
