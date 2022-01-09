@@ -171,6 +171,19 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		 }
 
 	   }
+
+	   $scope.onDeleteAllPrize = () => {
+		let node = $scope.gridOptions.api.getRowNode(0);
+		if(!node)
+			return
+		 let id = node && node[0] && node[0].id;
+		 if(localStorageService.deleteAllPrize(id)){
+			 $scope.gridOptions.api.setRowData([]);
+			 $('#delete_all_prize').modal('hide');
+			notificationService.showNotification("All enteries has been deleted successfully!", "fa fa-check", 2);
+		 }
+
+	   }
 	   
 
 	   $scope.clearObject = () => {
