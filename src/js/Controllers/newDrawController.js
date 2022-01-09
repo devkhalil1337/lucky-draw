@@ -63,15 +63,26 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 			width:150,
 		}, ],
 		rowData:localStorageService.getPrizeList(),
-		// [
-		// 	{drawname: "Mark", prizequantity: "10", alreadydrawn: '2', noofwinners: '1', prizename: 'PS4',prizeimage:''},
-		// 	{drawname: "Frank", prizequantity: "10", alreadydrawn: '10', noofwinners: '8', prizename: 'Laptop',prizeimage:''},
-		// 	{drawname: "Mark", prizequantity: "10", alreadydrawn: '36', noofwinners: '25', prizename: 'Cup',prizeimage:''},
-		// 	{drawname: "Mark", prizequantity: "10", alreadydrawn: '0', noofwinners: '0', prizename: 'Glass',prizeimage:''},
-		// ],
 		enableSorting: true,
 		enableColResize: true,
 		rowSelection: 'single',
+		onRowSelected: params => {
+			debugger
+			const rowData = params.api.getSelectedRows()[0];
+			let id = $scope.gridOptions.api.getSelectedNodes()[0].id
+			if(!rowData || rowData.length == 0) return;
+			$scope.addNewPrize = {
+				id: id,
+				isUpdate: true,
+				drawName: rowData.drawname,
+				prizeQuantity: rowData.prizequantity,
+				selectedImage: rowData.prizeimage,
+				PreviewImage: '',
+				imagesList: localStorageService.getPrizeList()
+			}
+			$scope.addNewPrize.selectedImage = localStorageService.getPrizeList()[id].prizeimage
+			$scope.$apply();
+		},
 		onGridReady: function(params) {
 			params.api.sizeColumnsToFit();
 		},
@@ -88,14 +99,29 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 			 prizequantity:$scope.addNewPrize.prizeQuantity,
 			 alreadydrawn:false,
 			 noofwinners:0,
-			 noofwinners:0,
 			 prizename:'',
 			 prizeimage:name
 			}
-			let response = await localStorageService.setPrizeObj(params);
+			let id = $scope.addNewPrize.id;
+			let response = {}
+			if(!!id){
+				response = await localStorageService.setPrizeObj(params,id);
+				if(path)
+					commanService.uploadFile(name,path);
+				let rowdata = $scope.gridOptions.api.getRowNode(id);
+				rowdata.setDataValue('drawname', params.drawname);
+				rowdata.setDataValue('prizequantity', params.prizequantity);
+				rowdata.setDataValue('prizeimage', params.prizename);
+				rowdata.setDataValue('noofwinners', params.noofwinners);
+				rowdata.setDataValue('prizename', params.prizename);
+				notificationService.showNotification("Prize updated successfully.", "fa fa-check", 2);
+				$("#add_new_prize").modal("hide");
+				return;
+			}
+			else 
+				response = await localStorageService.setPrizeObj(params);
 			if(response && commanService.uploadFile(name,path)){
 				notificationService.showNotification("Prize Added", "fa fa-check", 2);
-				// alert("Prize added");
 				let rowData = [];
 				$scope.gridOptions.api.forEachNode(node => rowData.push(node.data));
 				$scope.gridOptions.api.setRowData([...rowData,params])
@@ -116,6 +142,12 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 			imagesList:[]
 		}
 		$scope.addNewPrize.imagesList =  localStorageService.getPrizeList();
+		//  $scope.addNewPrize.selectedImage = $scope.addNewPrize.imagesList[1].prizeimage;
+	   }
+
+	   $scope.onEditPrize = () => {
+		 
+			 $('#add_new_prize').modal('show');
 	   }
 	   
 
