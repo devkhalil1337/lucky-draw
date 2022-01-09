@@ -68,9 +68,9 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		rowSelection: 'single',
 		onRowSelected: params => {
 			debugger
-			const rowData = params.api.getSelectedRows()[0];
-			let id = $scope.gridOptions.api.getSelectedNodes()[0].id
-			if(!rowData || rowData.length == 0) return;
+			const rowData = params.api.getSelectedRows() && params.api.getSelectedRows()[0];
+			let id = $scope.gridOptions.api.getSelectedNodes() && $scope.gridOptions.api.getSelectedNodes()[0] && $scope.gridOptions.api.getSelectedNodes()[0].id
+			if(!rowData || !id || rowData.length == 0) return;
 			$scope.addNewPrize = {
 				id: id,
 				isUpdate: true,
@@ -145,9 +145,26 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		//  $scope.addNewPrize.selectedImage = $scope.addNewPrize.imagesList[1].prizeimage;
 	   }
 
-	   $scope.onEditPrize = () => {
-		 
-			 $('#add_new_prize').modal('show');
+	   $scope.onEditPrize = () => { 
+		   if($scope.addNewPrize.id)
+		   	$('#add_new_prize').modal('show');
+		}
+	   $scope.onDeletePrizePopup = () => { 
+		   if($scope.addNewPrize.id)
+		   	$('#delete_prize').modal('show');
+		}
+
+	   $scope.onDeletePrize = () => {
+		let node = $scope.gridOptions.api.getSelectedNodes();
+		if(!node)
+			return
+		 let id = node && node[0] && node[0].id;
+		 $scope.gridOptions.api.removeItems(node);
+		 if(localStorageService.deletePrize(id)){
+			$('#delete_prize').modal('hide');
+			notificationService.showNotification("Entry deleted successfully!", "fa fa-check", 2);
+		 }
+
 	   }
 	   
 
@@ -214,7 +231,6 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 				notificationService.showNotification(name + " uploaded successfully", "fa fa-check", 2);
 				let isImageSaved = await localStorageService.setImage(name);
 				if(isImageSaved){
-					debugger
 					$scope.imagesObj.imagesList = localStorageService.getImagesList();
 					$scope.imagesObj.PreviewImage = "";
 					let index = $scope.imagesObj.imagesList.indexOf(name);

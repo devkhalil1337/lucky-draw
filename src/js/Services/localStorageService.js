@@ -53,6 +53,18 @@ angular.module('luckDrawApp').factory('localStorageService',['$injector', functi
         return JSON.parse(prizeList);
     }
 
+    let _deletePrize = (index) => {
+        return new Promise((resolve,reject) => {
+            try{
+                let imageList = _getPrizeList();
+                imageList = imageList.filter((el,ind) =>  ind !=index);
+                localStorage.setItem("PrizeImages",JSON.stringify(imageList))
+                return resolve(true);
+            }catch(error){
+                reject(error);
+            }
+        })
+    }
 
 
     let _setDefaultImageIndex = (index) => localStorage.setItem("defaultIndex",index);
@@ -69,5 +81,6 @@ angular.module('luckDrawApp').factory('localStorageService',['$injector', functi
         getDefaultImageIndex:_getDefaultImageIndex,
         setPrizeObj:_setPrizeObj,
         getPrizeList:_getPrizeList,
+        deletePrize:_deletePrize,
     }
 }]);
