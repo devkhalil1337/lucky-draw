@@ -9,6 +9,8 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 
 	$scope.addNewPrize = {
 		drawName:'',
+		noofwinners:'',
+		alreadydrawn:0,
 		prizeQuantity:0,
 		selectedImage:'',
 		PreviewImage:'',
@@ -87,6 +89,7 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 				id: id,
 				isUpdate: true,
 				drawName: rowData.drawname,
+				noofwinners: rowData.noofwinners,
 				prizeQuantity: rowData.prizequantity,
 				selectedImage: rowData.prizeimage,
 				PreviewImage: '',
@@ -110,9 +113,9 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 			let {name,path} = commanService.extractNamePath($scope.addNewPrize.selectedImage)
 			let params = { 
 			 drawname:$scope.addNewPrize.drawName,
+			 noofwinners:$scope.addNewPrize.noofwinners,
 			 prizequantity:$scope.addNewPrize.prizeQuantity,
 			 alreadydrawn:false,
-			 noofwinners:0,
 			 prizename:'',
 			 prizeimage:name
 			}
@@ -124,6 +127,7 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 					commanService.uploadFile(name,path);
 				let rowdata = $scope.gridOptions.api.getRowNode(id);
 				rowdata.setDataValue('drawname', params.drawname);
+				rowdata.setDataValue('noofwinners', params.noofwinners);
 				rowdata.setDataValue('prizequantity', params.prizequantity);
 				rowdata.setDataValue('prizeimage', params.prizename);
 				rowdata.setDataValue('noofwinners', params.noofwinners);
@@ -150,6 +154,7 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 		$scope.clear();
 		$scope.addNewPrize = {
 			drawName:'',
+			noofwinners:'',
 			prizeQuantity:0,
 			selectedImage:'',
 			PreviewImage:'',
