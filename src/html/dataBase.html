@@ -9,15 +9,28 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="bg-white p-2" style="border: 1px solid lightgray;">
-                    <p>Cillum ad ut irure tempor velit nostrud occaecat ullamco aliqua anim Lorem sint. Veniam sint duis incididunt do esse magna mollit excepteur laborum qui. Id id reprehenderit sit est eu aliqua occaecat quis et velit excepteur laborum mollit dolore eiusmod. Ipsum dolor in occaecat commodo et voluptate minim reprehenderit mollit pariatur. Deserunt non laborum enim et cillum eu deserunt excepteur ea incididunt minim occaecat.</p>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group row">
+                            <label for="staticEmail" class="col-sm-4 col-form-label">Upload List</label>
+                            <div class="col-sm-8">
+                                <input type="file" class="form-control-plaintext" import-sheet-js="" on-sheet-load="loadWorksheet(e)" multiple="false">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="prize_list_preview">
+                            <div ag-grid="gridOptions" class="ag-theme-material" style="height: 100%;"></div>                                       
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <div>
-                    <button type="button" class="btn btn-primary">Confirm</button>
-                    <button type="button" class="btn btn-success">Apply</button>
+                    <button type="button" class="btn btn-success" ng-click="saveList();">Save</button>
                 </div>
             </div>
         </div>
