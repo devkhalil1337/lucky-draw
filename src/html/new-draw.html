@@ -1,0 +1,142 @@
+<div ng-controller="newDrawController">
+    <div class="modal" tabindex="-1" role="dialog" id="new_draw" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="top: 15%;">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">New Draw</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Do you want to Draw?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" ng-click="onNewDraw();"  data-dismiss="modal">Yes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
+
+
+       <!-- process popup one -->
+    <div class="modal fade bd-example-modal-lg results-popup" id="main_one" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="images/{{customersObj.product.prizeimage}}" alt="">
+                            <h4 class="result-product">{{customersObj.product.drawname}}</h4>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row row-cols-lg-4">
+
+                                <div class="col-{{customersObj.product.columns}} numbers" ng-repeat="cust in getCustomers(customersObj.list)">{{cust.numbers}}</div>
+
+                                <!-- <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div>
+                                <div class="col-3 numbers">123456</div> -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
