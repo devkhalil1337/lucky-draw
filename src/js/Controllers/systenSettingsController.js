@@ -66,7 +66,7 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 			headerName: "Already Drawn",
 			field: "alreadydrawn",
 			width:150,
-			cellRenderer: params => params.value ? 'Yes' : 'No'
+			cellRenderer: params => params.value
 		}, {
 			headerName: "x-no of Winners",
 			field: "noofwinners",
@@ -75,6 +75,7 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 			headerName: "Prize Name",
 			field: "prizename",
 			width:150,
+			hide:true
 		}, ],
 		rowData:localStorageService.getPrizeList(),
 		enableSorting: true,
