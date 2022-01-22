@@ -82,7 +82,6 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 		enableColResize: true,
 		rowSelection: 'single',
 		onRowSelected: params => {
-			debugger
 			const rowData = params.api.getSelectedRows() && params.api.getSelectedRows()[0];
 			let id = $scope.gridOptions.api.getSelectedNodes() && $scope.gridOptions.api.getSelectedNodes()[0] && $scope.gridOptions.api.getSelectedNodes()[0].id
 			if(!rowData || !id || rowData.length == 0) return;
@@ -130,7 +129,7 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 				rowdata.setDataValue('drawname', params.drawname);
 				rowdata.setDataValue('noofwinners', params.noofwinners);
 				rowdata.setDataValue('prizequantity', params.prizequantity);
-				rowdata.setDataValue('prizeimage', params.prizename);
+				rowdata.setDataValue('prizeimage', params.prizeimage);
 				rowdata.setDataValue('noofwinners', params.noofwinners);
 				rowdata.setDataValue('prizename', params.prizename);
 				notificationService.showNotification("Prize updated successfully.", "fa fa-check", 2);
