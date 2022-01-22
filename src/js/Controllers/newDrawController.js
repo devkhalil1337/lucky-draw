@@ -18,6 +18,10 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 	$scope.onNewDraw = async () => {
 		$scope.prizeObj.list = localStorageService.getPrizeList();
 		$scope.customersObj.list = localStorageService.getPrizeCandidates();
+		if(!$scope.prizeObj.list || $scope.prizeObj.list.length == 0 || !$scope.customersObj.list || $scope.customersObj.list.length == 0){
+			notificationService.showNotification("Prize or Customer list is not found.", "fa fa-check", 3);
+			return;
+		}
 		$("#main_one").modal("show");
 		for(let i =0; i < $scope.prizeObj.list.length; i++){
 			if($scope.prizeObj.list[i].alreadydrawn >= $scope.prizeObj.list[i].prizequantity)
