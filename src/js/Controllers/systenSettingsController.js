@@ -80,7 +80,7 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 		rowData:localStorageService.getPrizeList(),
 		enableSorting: true,
 		enableColResize: true,
-		rowSelection: 'single',
+		rowSelection: 'multiple',
 		onRowSelected: params => {
 			const rowData = params.api.getSelectedRows() && params.api.getSelectedRows()[0];
 			let id = $scope.gridOptions.api.getSelectedNodes() && $scope.gridOptions.api.getSelectedNodes()[0] && $scope.gridOptions.api.getSelectedNodes()[0].id
@@ -168,6 +168,15 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 		let node = $scope.gridOptions.api.getSelectedNodes();
 		if(!node)
 			return
+		if(node.length > 1){
+			$scope.gridOptions.api.removeItems(node);
+			node.forEach((element,index) => {
+				localStorageService.deletePrize(element.id);
+			});
+			$('#delete_prize').modal('hide');
+			notificationService.showNotification("Entries deleted successfully!", "fa fa-check", 2);
+			return;
+		}
 		 let id = node && node[0] && node[0].id;
 		 $scope.gridOptions.api.removeItems(node);
 		 if(localStorageService.deletePrize(id)){
