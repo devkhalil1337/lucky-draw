@@ -34,6 +34,7 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 			// console.log(response);
 			if(i == prizeLength-1){
 				$("#main_one").modal("hide");
+				$(".modal-backdrop").remove()
 				$scope.changeTab('winnerList','winner_list');
 			}
 		}		
