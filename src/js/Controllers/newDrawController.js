@@ -32,12 +32,10 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 			let response = await $scope.customersList();
 			commanService.getArrayRandomWinners(response,$scope.customersObj.product);
 			// console.log(response);
-			if(i == prizeLength-1){
-				$("#main_one").modal("hide");
-				$(".modal-backdrop").remove()
-				$scope.changeTab('winnerList','winner_list');
-			}
 		}		
+		$("#main_one").modal("hide");
+		$(".modal-backdrop").remove()
+		$scope.changeTab('winnerList','winner_list');
 	}
 
 	$scope.customersList = () => {		

@@ -35,8 +35,10 @@ angular.module('luckDrawApp').factory('localStorageService',['$injector', functi
             try{
                 let prizeList = _getPrizeList();
                 let imageIndex = prizeList.length;
-                if(index || index == 0)
+                if(index || index == 0){
+                    prizeObj.id = Number(index);
                     prizeList[index] = prizeObj;
+                }
                 else{
                     prizeObj.id = imageIndex;
                     prizeList[imageIndex] = prizeObj;
