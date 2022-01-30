@@ -23,7 +23,8 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 			return;
 		}
 		$("#main_one").modal("show");
-		for(let i =0; i < $scope.prizeObj.list.length; i++){
+		let prizeLength = $scope.prizeObj.list.length;
+		for(let i = 0; i < prizeLength; i++){
 			if($scope.prizeObj.list[i].alreadydrawn >= $scope.prizeObj.list[i].prizequantity)
 				continue;
 			$scope.prizeObj.list[i].columns = Math.ceil(12/$scope.prizeObj.list[i].noofwinners);
@@ -31,6 +32,10 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 			let response = await $scope.customersList();
 			commanService.getArrayRandomWinners(response,$scope.customersObj.product);
 			// console.log(response);
+			if(i == prizeLength-1){
+				$("#main_one").modal("hide");
+				$scope.changeTab('winnerList','winner_list');
+			}
 		}		
 	}
 
