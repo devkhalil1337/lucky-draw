@@ -142,7 +142,8 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 				notificationService.showNotification("Prize Added", "fa fa-check", 2);
 				let rowData = [];
 				$scope.gridOptions.api.forEachNode(node => rowData.push(node.data));
-				$scope.gridOptions.api.setRowData([...rowData,params])
+				$scope.gridOptions.api.setRowData([...rowData,params]);
+				$("#add_new_prize").modal("hide");
 			}
 		}catch(error){
 			console.log(error);
