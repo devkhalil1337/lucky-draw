@@ -107,6 +107,7 @@ angular.module('luckDrawApp').factory('localStorageService',['$injector', functi
             return [];
         return JSON.parse(prizeCandidates);
     }
+    let _removePrizeCandidates = () => localStorage.removeItem("PrizeCandidates");
 
     let _getWinnersList = () => {
         let winnersList = localStorage.getItem("WinnersList");
@@ -129,6 +130,7 @@ angular.module('luckDrawApp').factory('localStorageService',['$injector', functi
         deleteAllPrize:_deleteAllPrize,
         setPrizeCandidates:_setPrizeCandidates,
         getPrizeCandidates:_getPrizeCandidates,
+        removePrizeCandidates:_removePrizeCandidates,
         getWinnersList:_getWinnersList,
         setWinnersList:_setWinnersList
     }

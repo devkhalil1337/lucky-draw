@@ -62,6 +62,13 @@ angular.module('luckDrawApp').controller("dataBaseController", ['$scope', 'navig
 		  }
 	  }
 
+	  $scope.clearDatabase = () => {
+
+		localStorageService.removePrizeCandidates();
+		$scope.gridOptions.api.setRowData([]);
+		notificationService.showNotification("DataBase has been cleared", "fa fa-check", 2);
+	  }
+
 
 	init();
 }]);
