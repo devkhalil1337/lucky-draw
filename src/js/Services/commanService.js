@@ -66,7 +66,7 @@ angular.module('luckDrawApp').factory('commanService',['$injector','localStorage
         let winners = [];
         let winersList = localStorageService.getWinnersList();
         for(let i = 0; i < product.noofwinners;i++){
-            winners.push(customersArr[Math.floor(Math.random() * customersArr.length)].numbers);
+            winners.push(customersArr[Math.floor(Math.random() * customersArr.length)].candidates);
         }
 
         product.alreadydrawn++; //increasing number of draws

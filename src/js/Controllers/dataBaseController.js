@@ -1,6 +1,7 @@
 angular.module('luckDrawApp').controller("dataBaseController", ['$scope', 'navigationService','localStorageService','notificationService', function($scope, navigationService,localStorageService,notificationService) {
 	function init() {
-		console.log("dataBaseController execyted")
+		console.log("dataBaseController execyted");
+		console.log(localStorageService.getPrizeCandidates());
 	}
 
 	$scope.gridOptions = {
@@ -15,10 +16,10 @@ angular.module('luckDrawApp').controller("dataBaseController", ['$scope', 'navig
 			checkboxSelection: true,
 			width:100
 			},{
-			headerName: "Numbers",
-			field: "numbers",
+			headerName: "Candidates",
+			field: "candidates",
 			width:150,
-			 cellRenderer: params => + params.value
+			valueGetter: params => params.data.candidates
 		}],
 		enableSorting: true,
 		enableColResize: true,

@@ -115,7 +115,7 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 			 drawname:$scope.addNewPrize.drawName,
 			 noofwinners:$scope.addNewPrize.noofwinners,
 			 prizequantity:$scope.addNewPrize.prizeQuantity,
-			 alreadydrawn:false,
+			 alreadydrawn:$scope.addNewPrize.alreadydrawn,
 			 prizename:'',
 			 prizeimage:name
 			}
