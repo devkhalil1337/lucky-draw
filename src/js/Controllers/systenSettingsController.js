@@ -42,41 +42,36 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 		defaultColDef: {
 			resizable: true,
 		},
-		columnDefs: [
-			{ 
+		columnDefs: [{
 			// field: 'RowSelect',
 			headerName: ' ',
 			// headerCheckboxSelection: true,
 			checkboxSelection: true,
-			width:100
-			},{
-			headerName: "Prize Image",
-			field: "prizeimage",
-			width:150,
-			cellRenderer: params => '<img src=images/' + params.value + '>'
+			sort: false,
+			width: 100
 		}, {
-			headerName: "Draw Name",
+			headerName: "Prize Name",
 			field: "drawname",
-			width:150,
+			width: 200,
+		}, {
+			headerName: "Image",
+			field: "prizeimage",
+			width: 100,
+			cellRenderer: params => '<img src=images/' + params.value + '>'
 		}, {
 			headerName: "Prize Quantity",
 			field: "prizequantity",
-			width:150,
+			width: 150,
 		}, {
-			headerName: "Already Drawn",
+			headerName: "x-no of Draws",
 			field: "alreadydrawn",
-			width:150,
+			width: 150,
 			cellRenderer: params => params.value
 		}, {
 			headerName: "x-no of Winners",
 			field: "noofwinners",
-			width:150,
-		}, {
-			headerName: "Prize Name",
-			field: "prizename",
-			width:150,
-			hide:true
-		}, ],
+			width: 150,
+		}],
 		rowData:localStorageService.getPrizeList(),
 		enableSorting: true,
 		enableColResize: true,
@@ -115,8 +110,7 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 			 drawname:$scope.addNewPrize.drawName,
 			 noofwinners:$scope.addNewPrize.noofwinners,
 			 prizequantity:$scope.addNewPrize.prizeQuantity,
-			 alreadydrawn:$scope.addNewPrize.alreadydrawn,
-			 prizename:'',
+			 alreadydrawn:0,
 			 prizeimage:name
 			}
 			let id = $scope.addNewPrize.id;
@@ -131,7 +125,6 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 				rowdata.setDataValue('prizequantity', params.prizequantity);
 				rowdata.setDataValue('prizeimage', params.prizeimage);
 				rowdata.setDataValue('noofwinners', params.noofwinners);
-				rowdata.setDataValue('prizename', params.prizename);
 				notificationService.showNotification("Prize updated successfully.", "fa fa-check", 2);
 				$("#add_new_prize").modal("hide");
 				return;
@@ -294,12 +287,5 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 	init();
 
 
-	$(".nav-item").on("click", function (e) {
-		setTimeout(() => {
-			if(e.target.id.indexOf('pills-profile-tab') > -1 && e.target.className.indexOf('active') > -1){
-				$scope.gridOptions.api.sizeColumnsToFit()
-			}			
-		}, 50);
-       });
 	
 }]);
