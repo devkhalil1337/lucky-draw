@@ -2,10 +2,15 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 
 	$scope.customersObj = {
 		list:[],
-		product:{}
+		product:{},
+		limit:0
 	}
 
 	$scope.prizeObj = {
+		list:[]
+	}
+
+	$scope.winners = {
 		list:[]
 	}
 
@@ -29,13 +34,16 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 				continue;
 			$scope.prizeObj.list[i].columns = Math.ceil(12/$scope.prizeObj.list[i].noofwinners);
 			$scope.customersObj.product = $scope.prizeObj.list[i];
+			// if()
+			// $scope.customersObj.limit = 
 			let response = await $scope.customersList();
-			commanService.getArrayRandomWinners(response,$scope.customersObj.product);
+			$scope.winners.list.push(commanService.getArrayRandomWinners(response,$scope.customersObj.product));
 			// console.log(response);
 		}		
 		$("#main_one").modal("hide");
 		$(".modal-backdrop").remove()
-		$scope.changeTab('winnerList','winner_list');
+		$("#new_winner_list").modal("show");
+		// $scope.changeTab('winnerList','winner_list');
 	}
 
 	$scope.customersList = () => {		

@@ -36,9 +36,39 @@
               </div>
               <div class="col-md-8">
                 <div class="row row-cols-lg-4">
-                  <div class="col-3 numbers" ng-repeat="cust in getCustomers(customersObj.list)">{{cust.candidates}}</div>
+                  <div class="col-{{customersObj.product.noofwinners == '1' ? '12' : customersObj.product.noofwinners == '2' ? '6' : '3' }} numbers" ng-repeat="cust in getCustomers(customersObj.list)  | limitTo:customersObj.product.noofwinners">
+                    {{cust.candidates}}
+                  </div>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade bd-example-modal-lg results-popup" id="new_winner_list" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title">Display Winner List</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          <div class="modal-body" style="overflow: scroll;">
+            <div class="restul-section" ng-repeat="winners in winners.list">
+              <h5 class="restul-section-title">{{winners.product.drawname}} {{winners.date}}</h5>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row row-cols-lg-{{winners.product.columns}}" ng-repeat="candidates in winners.winnersList track by $index">
+                    <div class="col numbers">{{candidates}}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="restul-section" ng-show="winners.list.length == 0">
+              <h5 class="restul-section-title">There are no winners yet</h5>
             </div>
           </div>
         </div>

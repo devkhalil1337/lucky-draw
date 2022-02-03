@@ -10,7 +10,7 @@
             </div>
             <div class="modal-body" style="overflow: scroll;">
               <div class="restul-section" ng-repeat="winners in winners.list">
-                <h5 class="restul-section-title">{{winners.product.drawname}}</h5>
+                <h5 class="restul-section-title">{{winners.product.drawname}} {{winners.date}}</h5>
                 <div class="row">
                   <div class="col-md-12">
                     <div class="row row-cols-lg-{{winners.product.columns}}" ng-repeat="candidates in winners.winnersList track by $index">
@@ -22,33 +22,6 @@
               <div class="restul-section" ng-show="winners.list.length == 0">
                 <h5 class="restul-section-title">There are no winners yet</h5>
               </div>
-              <!-- <div class="restul-section">
-                <h5 class="restul-section-title">Product Name</h5>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="row row-cols-lg-4">
-                      <div class="col-3 numbers">123456</div>
-                      <div class="col-3 numbers">123456</div>
-                      <div class="col-3 numbers">123456</div>
-                      <div class="col-3 numbers">123456</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="restul-section">
-                <h5 class="restul-section-title">Product Name</h5>
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="row row-cols-lg-5">
-                      <div class="col numbers">123456</div>
-                      <div class="col numbers">123456</div>
-                      <div class="col numbers">123456</div>
-                      <div class="col numbers">123456</div>
-                      <div class="col numbers">123456</div>
-                    </div>
-                  </div>
-                </div>
-              </div> -->
             </div>
           </div>
         </div>

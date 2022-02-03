@@ -62,9 +62,15 @@ angular.module('luckDrawApp').factory('commanService',['$injector','localStorage
         return array;
     }
 
+    factory.currentDate = () => {
+        let date = new Date();
+       return  date.toLocaleDateString();
+    }
+
     factory.getArrayRandomWinners  = (customersArr,product) => {
         let winners = [];
         let winersList = localStorageService.getWinnersList();
+
         for(let i = 0; i < product.noofwinners;i++){
             winners.push(customersArr[Math.floor(Math.random() * customersArr.length)].candidates);
         }
@@ -75,10 +81,15 @@ angular.module('luckDrawApp').factory('commanService',['$injector','localStorage
             winersList = [];
         winersList[winersList.length] = {
             winnersList: winners,
-            product:product
+            product:product,
+            date:factory.currentDate()
         }
-        console.log("Winners",winners,winersList)
         localStorageService.setWinnersList(JSON.stringify(winersList));
+        return {
+            winnersList: winners,
+            product:product,
+            date:factory.currentDate()
+        }
       }
 
 
