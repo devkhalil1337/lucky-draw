@@ -13,9 +13,9 @@
                 <h5 class="restul-section-title">{{winners.product.drawname}} {{winners.date}}</h5>
                 <div class="row">
                   <div class="col-md-12">
-                    <div class="row row-cols-lg-{{winners.product.columns}}" ng-repeat="candidates in winners.winnersList track by $index">
-                      <div class="col numbers">{{candidates}}</div>
-                    </div>
+                    <span class="row-cols-lg-4" ng-repeat="candidates in winners.winnersList track by $index">
+                      <span class="col-{{winners.winnersList.length == 1 ? '12':winners.winnersList.length == 2 ? '6' :winners.winnersList.length >= 3 ? '4':'3'}} numbers">{{candidates}}</span>
+                    </span>
                   </div>
                 </div>
               </div>
