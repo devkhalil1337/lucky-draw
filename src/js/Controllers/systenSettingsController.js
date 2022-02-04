@@ -43,9 +43,9 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 			resizable: true,
 		},
 		columnDefs: [{
-			// field: 'RowSelect',
+			 field: 'RowSelect',
 			headerName: ' ',
-			// headerCheckboxSelection: true,
+			headerCheckboxSelection: true,
 			checkboxSelection: true,
 			sort: false,
 			width: 100
@@ -53,24 +53,29 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 			headerName: "Prize Name",
 			field: "drawname",
 			width: 200,
+			cellClass: () => 'text-center'
 		}, {
 			headerName: "Image",
 			field: "prizeimage",
 			width: 100,
-			cellRenderer: params => '<img src=images/' + params.value + '>'
+			cellRenderer: params => '<img src=images/' + params.value + '>',
+			cellClass: () => 'text-center'
 		}, {
 			headerName: "Prize Quantity",
 			field: "prizequantity",
 			width: 150,
+			cellClass: () => 'text-center'
 		}, {
 			headerName: "x-no of Draws",
 			field: "alreadydrawn",
 			width: 150,
-			cellRenderer: params => params.value
+			cellRenderer: params => params.value,
+			cellClass: () => 'text-center'
 		}, {
 			headerName: "x-no of Winners",
 			field: "noofwinners",
 			width: 150,
+			cellClass: () => 'text-center'
 		}],
 		rowData:localStorageService.getPrizeList(),
 		enableSorting: true,
