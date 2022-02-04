@@ -36,7 +36,7 @@
               </div>
               <div class="col-md-8">
                 <div class="row row-cols-lg-4">
-                  <div class="col-{{customersObj.product.noofwinners == '1' ? '12' : customersObj.product.noofwinners == '2' ? '6' : '3' }} numbers" ng-repeat="cust in getCustomers(customersObj.list)  | limitTo:customersObj.product.noofwinners">
+                  <div class="col-{{customersObj.product.noofwinners == '1' ? '12 font-weight-bold' : customersObj.product.noofwinners == '2' ? '6' : '3' }} numbers" ng-repeat="cust in getCustomers(customersObj.list)  | limitTo:customersObj.product.noofwinners">
                     {{cust.candidates}}
                   </div>
                 </div>
