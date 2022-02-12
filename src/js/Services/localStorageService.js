@@ -118,6 +118,17 @@ angular.module('luckDrawApp').factory('localStorageService',['$injector', functi
 
     let _setWinnersList = (winnersList) => localStorage.setItem("WinnersList",winnersList);
 
+
+    let _getDrawSettings = () => {
+        let drawSettings = localStorage.getItem("DrawSettings");
+        if(!drawSettings)
+            return [];
+        return JSON.parse(drawSettings);
+    }
+
+    let _setDrawSettings = (drawObj) => localStorage.setItem("DrawSettings",drawObj);
+
+
     return {
         setImage :_setImage,
         getImagesList:_getImagesList,
@@ -132,6 +143,8 @@ angular.module('luckDrawApp').factory('localStorageService',['$injector', functi
         getPrizeCandidates:_getPrizeCandidates,
         removePrizeCandidates:_removePrizeCandidates,
         getWinnersList:_getWinnersList,
-        setWinnersList:_setWinnersList
+        setWinnersList:_setWinnersList,
+        getDrawSettings:_getDrawSettings,
+        setDrawSettings:_setDrawSettings
     }
 }]);

@@ -126,67 +126,63 @@
                             </div>
                         </div>
                         <div class="tab-pane fade" id="pills-Draw-Display" role="tabpanel" aria-labelledby="pills-contact-tab">
-                            <h6 class="bordered-bottom">Draw Display</h6>                                
-                            <div class="bg-white p-2" style="border: 1px solid lightgray;">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-4 col-form-label">Rolling Speed</label>
-                                            <div class="col-sm-8">
-                                                <input type="range" class="form-control">
+                            <h6 class="bordered-bottom">Draw Display</h6>   
+                            <form  ng-submit="OnDrawSettingSave();">
+                                <div class="bg-white p-2" style="border: 1px solid lightgray;">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-4 col-form-label">Rolling Speed</label>
+                                                <div class="col-sm-8 text-center">
+                                                    <input type="range" class="form-control" step="1" min="0" max="100" ng-model="drawDisplayObjects.rollSpeed">
+                                                    <small> ({{drawDisplayObjects.rollSpeed}})</small>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-4 col-form-label">Font Family</label>
-                                            <div class="col-sm-8">
-                                                <select class="form-control">
-                                                    <option>Select Font Family</option>                                                            
-                                                    <option>Arial</option>
-                                                    <option>Arial</option>
-                                                    <option>Cambria</option>
-                                                    <option>Comic Sans MS</option>
-                                                    <option>Courier New</option>
-                                                </select>
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-4 col-form-label">Font Family</label>
+                                                <div class="col-sm-8">
+                                                    <select class="form-control" ng-model="drawDisplayObjects.fontFamily">
+                                                        <option disabled ng-selected="true" value="">Select Font Family</option>                                                            
+                                                        <option value="Arial">Arial</option>
+                                                        <option value="Cambria">Cambria</option>
+                                                        <option value="Comic Sans MS">Comic Sans MS</option>
+                                                        <option value="Courier New">Courier New</option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-4 col-form-label">Font Size</label>
-                                            <div class="col-sm-8">
-                                                <select class="form-control">
-                                                    <option>Select Font Size</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                </select>
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-4 col-form-label">Font Size</label>
+                                                <div class="col-sm-8">
+                                                    <input type="number" class="form-control" step="1" min="1" max="100"  ng-model="drawDisplayObjects.fontSize">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-4 col-form-label">Font Color</label>
-                                            <div class="col-sm-8">
-                                                <input type="color" class="form-control p-0">
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-4 col-form-label">Font Color</label>
+                                                <div class="col-sm-8">
+                                                    <input type="color" class="form-control p-0" ng-model="drawDisplayObjects.fontColor">
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label for="staticEmail" class="col-sm-4 col-form-label">Tint the Area</label>
-                                            <div class="col-sm-8">
-                                                <input type="range" class="form-control">
+                                            <div class="form-group row">
+                                                <label for="staticEmail" class="col-sm-4 col-form-label">Tint the Area</label>
+                                                <div class="col-sm-8">
+                                                    <input type="range" class="form-control" step="1" min="0" max="100" ng-model="drawDisplayObjects.tintArea">
+                                                </div>
                                             </div>
+            
                                         </div>
-        
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div id="new_prize"><h3>Preview</h3></div>
+                                        <div class="col-lg-6">
+                                            <div id="new_prize"><h3>Preview</h3></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tab-section-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <div>
-                                    <button type="button" class="btn btn-primary">Confirm</button>
-                                    <button type="button" class="btn btn-success">Apply</button>
+                                <div class="tab-section-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <div>
+                                        <button type="button" class="btn btn-primary" ng-click="OnResetDrawSetting();">Reset</button>
+                                        <button type="button" class="btn btn-success" ng-click="OnSaveDrawSetting();">Save</button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>                             
                         </div>
                         <div class="tab-pane fade" id="pills-Winners-List" role="tabpanel" aria-labelledby="pills-contact-tab">
                             <ul class="nav nav-pills winners-list-tabs nav-fill mb-3" id="pills-tab" role="tablist">

@@ -17,6 +17,14 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 		imagesList:[]
 	}
 
+	$scope.drawDisplayObjects = {
+		rollSpeed:1,
+		fontFamily:'',
+		fontSize:'',
+		fontColor:'',
+		tintArea:0
+	}
+
 	$scope.modalObj = {
 		onDeletePrize: () => {
 			if($scope.addNewPrize.id)
@@ -32,6 +40,7 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 	function init() {
 		console.log("systenSettingsController execyted");
 		$scope.imagesObj.imagesList = localStorageService.getImagesList();
+		$scope.drawDisplayObjects = localStorageService.getDrawSettings()
 	}
 
 	
@@ -289,6 +298,39 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 
 	//End of Interface
 	
+
+	$scope.OnSaveDrawSetting = () => {
+		try {
+			let drawSetting = {...$scope.drawDisplayObjects
+			};
+			localStorageService.setDrawSettings(JSON.stringify(drawSetting));
+			notificationService.showNotification("Draw setting has been saved successfully", "fa fa-check", 2);
+		} catch(error) {
+			console.log(error);
+			notificationService.showNotification(error, "fa fa-check", 4);
+		}
+	}
+	$scope.OnResetDrawSetting= () => {
+		try {
+			$scope.drawDisplayObjects
+			let drawSetting = {
+				rollSpeed:1,
+				fontFamily:'',
+				fontSize:'',
+				fontColor:'',
+				tintArea:0
+			};
+			$scope.drawDisplayObjects = drawSetting;
+			localStorageService.setDrawSettings(JSON.stringify(drawSetting));
+			notificationService.showNotification("Draw setting has been resetted successfully", "fa fa-check", 2);
+		} catch(error) {
+			console.log(error);
+			notificationService.showNotification(error, "fa fa-check", 4);
+		}
+	}
+
+
+
 	init();
 
 

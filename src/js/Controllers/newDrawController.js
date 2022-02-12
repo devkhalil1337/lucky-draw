@@ -14,8 +14,17 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		list:[]
 	}
 
+	$scope.drawDisplayObjects = {
+		rollSpeed:1,
+		fontFamily:'',
+		fontSize:'',
+		fontColor:'',
+		tintArea:1
+	}
+
 	function init() {
 		console.log("newDrawController execyted");
+		$scope.drawDisplayObjects = localStorageService.getDrawSettings()
 	}
 
 	var timer
@@ -52,7 +61,7 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 				timer = $interval(() => {
 					$scope.customersObj.list = commanService.randomizeArr($scope.customersObj.list);
 					// $scope.$apply();
-				},50);
+				},($scope.drawDisplayObjects.rollSpeed*100) || 50);
 				setTimeout(() => {
 					$interval.cancel(timer);
 					resolve($scope.customersObj.list)
