@@ -264,10 +264,9 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 	
 	
 	$scope.saveImage = async () => {
-		debugger
 		try{
 			let {name,path} = commanService.extractNamePath($scope.imagesObj.selectedImage)
-			if(commanService.uploadFile(name,path)){
+			if(commanService.uploadFile(name,path) && name && path){
 				notificationService.showNotification(name + " uploaded successfully", "fa fa-check", 2);
 				let isImageSaved = await localStorageService.setImage(name);
 				if(isImageSaved){
@@ -279,6 +278,8 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 					$scope.getImageIndex();
 					$scope.$apply();
 				}
+			}else{
+				notificationService.showNotification("No image is selected to upload.", "fa fa-check", 3);
 			}
 
 		}catch(error){
