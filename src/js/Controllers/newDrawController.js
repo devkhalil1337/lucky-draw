@@ -52,7 +52,7 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		$("#main_one").modal("hide");
 		$(".modal-backdrop").remove()
 		$("#new_winner_list").modal("show");
-		// $scope.changeTab('winnerList','winner_list');
+//		commanService.exportWinners(); //exporting winners list in pdf
 	}
 
 	$scope.customersList = () => {		
@@ -76,6 +76,15 @@ angular.module('luckDrawApp').controller("newDrawController", ['$scope', 'naviga
 		return array
 	}
 	
+
+	$scope.onDeleteWinners = () => {
+		commanService.clearWinners();
+		notificationService.showNotification("Winners list cleared successfully", "fa fa-check", 2);
+	}
+	$scope.onExportWinnersList = () => {
+		commanService.exportWinners();
+		notificationService.showNotification("Winners list exported successfully", "fa fa-check", 2);
+	}
 	
 
 		$scope.$on("$destroy", navigationService.observeActiveTemplateChanged(

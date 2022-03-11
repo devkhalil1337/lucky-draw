@@ -13,6 +13,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete_winners_list">Reset Winners</button>
             <button type="button" class="btn btn-success" ng-click="onNewDraw();"  data-dismiss="modal">Yes</button>
           </div>
         </div>
@@ -74,4 +75,27 @@
         </div>
       </div>
     </div>
+
+
+    <div class="modal" tabindex="-1" role="dialog" id="delete_winners_list" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" style="top: 15%;">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Winners List Reset Confirmation</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to reset winners list?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" ng-click="onDeleteWinners();">Reset</button>
+            <button type="button" class="btn btn-primary" ng-click="onExportWinnersList();">Export List</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>

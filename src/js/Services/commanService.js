@@ -3,7 +3,7 @@ angular.module('luckDrawApp').factory('commanService',['$injector','localStorage
 
     let factory = {}
     var fs = require('fs');
-
+    var path = require('path')
     factory.emptyObect = (object) => {
         Object.keys(object).forEach((key) => {
             object[key] = null;
@@ -62,7 +62,7 @@ angular.module('luckDrawApp').factory('commanService',['$injector','localStorage
         return array;
     }
 
-    factory.currentDate = () => {
+    factory.currentDate = (form) => {
         let date = new Date();
        return  date.toLocaleDateString();
     }
@@ -91,6 +91,47 @@ angular.module('luckDrawApp').factory('commanService',['$injector','localStorage
             date:factory.currentDate()
         }
       }
+
+      factory.getInstalledAppPath = () => {
+          let path = nw.App.startPath;
+          if(path)
+            return path.replace(/\\/g, "/") + "/"
+          return "C:/";
+      }
+
+      factory.clearWinners = () => {
+          return localStorageService.removeWinnersList();
+      }
+
+      factory.exportWinners = () => {
+        let winnersList = localStorageService.getWinnersList();
+        if(!winnersList) winnersList = [];
+        let date = new Date();
+        let fileName = `reports-${date.getDate() + '-' + (date.getMonth()+1) + '-' + date.getFullYear()}_${date.getHours()}_${date.getMinutes()}_${date.getHours()}`;
+        let data = winnersList.map((elm, index) => {
+            return {
+                "Sr#": (index + 1),
+                "Date": elm.date,
+                "Product": elm.product.drawname,
+                "Winners": elm.winnersList.join(",")
+            }
+        })
+        let ws = XLSX.utils.json_to_sheet(data);
+        let wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "People");
+        // XLSX.writeFile(wb, fileName);
+
+        let wbout = XLSX.write(wb, {type:"array", bookType:'xlsx'});
+        let url = URL.createObjectURL(new Blob([wbout], {type: 'application/octet-stream'}));
+        chrome.downloads.download({ url: url, filename: `${fileName}.xlsx`, saveAs: true });
+
+        
+        // let a = document.createElement("a");
+        // let file = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;'});
+        // a.href = URL.createObjectURL(file);
+        // a.download = fileName;
+        // a.click();
+    }
 
 
     return factory;
