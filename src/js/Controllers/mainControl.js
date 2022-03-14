@@ -1,5 +1,5 @@
 var app = angular.module('luckDrawApp');
-app.controller("MainControl",['$scope','navigationService','localStorageService', function ($scope,navigationService,localStorageService) {
+app.controller("MainControl",['$scope','navigationService','localStorageService','authService', 'notificationService',function ($scope,navigationService,localStorageService,authService,notificationService) {
 	"ngInject";
 
 	$scope.settingsObj = {
@@ -7,9 +7,16 @@ app.controller("MainControl",['$scope','navigationService','localStorageService'
 		index:0
 	}
 
+	$scope.loginCredentials = {
+		key:''
+	}
+
 
 	function init() {
-
+		if(authService.isFirstTimeLoad()){
+			$('#login_modal').modal('show');
+			return;
+		}
 		console.log("main controller")
 		$scope.selectedTab = "addPrize";
 		navigationService.setActiveTemplate($scope.selectedTab);
@@ -26,6 +33,13 @@ app.controller("MainControl",['$scope','navigationService','localStorageService'
 		},100)
 	}
 
+	$scope.onLogin = () => {
+		if(authService.isKeyvalid($scope.loginCredentials.key)){
+			notificationService.showNotification("User logged in successfully", "fa fa-check", 2);
+			$('#login_modal').modal('toggle');
+		}else
+			notificationService.showNotification("Invalid or incorrent key", "fa fa-check", 3);
+	}
 
 
 	$('#fullBtn').on('click', function(){
