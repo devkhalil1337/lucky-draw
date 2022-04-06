@@ -8,6 +8,8 @@ angular.module('luckDrawApp').factory('authService',['$injector','localStorageSe
         let username = localStorageService.getUserName();
         let computerName = nw.process.env.COMPUTERNAME;
         if(!username && !isFirstTime){
+            let encryptionKey = CryptoJS.AES.encrypt(computerName, "iamroot");
+            localStorageService.setEncryptionKey(encryptionKey)
             return true;
         }
         if(username != computerName){
@@ -18,9 +20,10 @@ angular.module('luckDrawApp').factory('authService',['$injector','localStorageSe
     }
 
     factory.isKeyvalid = (key) => {
-        let keys = ['sn6qcspu2K2XBhq7WO6N5HCzCKTuKEqq','h6FA3rIvRK3aO8SLwHrWl6M4AXxTlfBI','hFlgnO70QRER3KuPw9c6Di71NuiePFal','OZy9J3jQ8H9dKaakOKmXmlxzYi835AFy','123456789']
-        if(keys.includes(key)){
-            let computerName = nw.process.env.COMPUTERNAME;
+        let computerName = nw.process.env.COMPUTERNAME;
+        let decryptedKey = CryptoJS.AES.decrypt(key, "iamroot");
+        plainText = decryptedKey.toString(CryptoJS.enc.Utf8);
+        if(plainText.toLowerCase() == computerName.toLowerCase()){
             localStorageService.setFirstTimeLoaded(true);
             localStorageService.setUserName(computerName);
             return true;

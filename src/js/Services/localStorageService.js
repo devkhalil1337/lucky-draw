@@ -138,6 +138,10 @@ angular.module('luckDrawApp').factory('localStorageService',['$injector', functi
     
     let _getUserName = () => localStorage.getItem("username");
 
+    let _setEncryptionKey = (key) => localStorage.setItem("EncryptionKey",key);
+    
+    let _getEncryptionKey = () => localStorage.getItem("EncryptionKey");
+
     return {
         setImage :_setImage,
         getImagesList:_getImagesList,
@@ -160,6 +164,8 @@ angular.module('luckDrawApp').factory('localStorageService',['$injector', functi
         setFirstTimeLoaded:_setFirstTimeLoaded,
         getUserName:_getUserName,
         setUserName:_setUserName,
+        getEncryptionKey:_getEncryptionKey,
+        setEncryptionKey:_setEncryptionKey,
 
 
     }
