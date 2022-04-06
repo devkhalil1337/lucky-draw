@@ -1,4 +1,4 @@
-angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 'navigationService','localStorageService','commanService','notificationService', function($scope, navigationService,localStorageService,commanService,notificationService) {
+angular.module('luckDrawApp').controller("systemSettingsController", ['$scope', 'navigationService','localStorageService','commanService','notificationService', function($scope, navigationService,localStorageService,commanService,notificationService) {
 	$scope.prizeList = {list:[]}
 	$scope.imagesObj ={
 		imagesList:[],
@@ -38,7 +38,7 @@ angular.module('luckDrawApp').controller("systenSettingsController", ['$scope', 
 	}
 
 	function init() {
-		console.log("systenSettingsController execyted");
+		console.log("systemSettingsController execyted");
 		$scope.imagesObj.imagesList = localStorageService.getImagesList();
 		$scope.drawDisplayObjects = localStorageService.getDrawSettings()
 	}
