@@ -45,14 +45,41 @@ app.controller("MainControl",['$scope','navigationService','localStorageService'
 	$('#fullBtn').on('click', function(){
 		let ngui = require('nw.gui');
 		let nwin = ngui.Window.get();
-		if(nwin.isFullscreen)
+		if(nwin.isFullscreen){
 			nw.Window.get().leaveFullscreen();
-		else
+			$(".taskbar").show();
+		}
+		else{
 			nwin.enterFullscreen();
+			$(".taskbar").hide();
+		}
 	});
 	$('#startBtn').on('click', function(){
 		$("#startMenu").toggleClass("showMenu");
 	});
+
+	document.addEventListener('keydown', function(event){	
+		if(!event)
+			return;
+		if (event.key == "Enter" && event.altKey) {
+			let ngui = require('nw.gui');
+			let nwin = ngui.Window.get();
+			if(nwin.isFullscreen){
+				nw.Window.get().leaveFullscreen();
+				$(".taskbar").show();
+			}
+			else{
+				nwin.enterFullscreen();
+				$(".taskbar").hide();
+			}
+		}
+
+		if ((event.key == "n" || event.key == "N" ) && event.ctrlKey) {
+			$scope.changeTab('newDraw','new_draw');
+			$scope.$apply()
+		}	
+	});
+
 
 	$scope.ApplyImage = (index) => {
 		let listOfImages = localStorageService.getImagesList();
